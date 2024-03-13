@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="RecruitingMobile.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:RecruitingMobile"
+    Shell.FlyoutBehavior="Disabled"
+    Title="RecruitingMobile">
+
+    <Shell.TitleView>
+        <HorizontalStackLayout VerticalOptions="Fill">
+            <Label
+      Text="Jobs@NZ"
+      FontFamily="Strande2"
+      TextColor="White"
+      VerticalTextAlignment="Center"
+      VerticalOptions="Center"
+      HeightRequest="50"
+      FontSize="Medium" />
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+    
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+</Shell>

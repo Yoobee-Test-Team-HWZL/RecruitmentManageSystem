@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecruitingMobile.Views.DetailPage"
+             xmlns:viewmodel="clr-namespace:RecruitingMobile.ViewModels"
+             x:DataType="viewmodel:DetailViewModel"
+             Title="Position Details"
+             Shell.NavBarHasShadow="true"
+             Shell.BackgroundColor="DarkGreen"
+             >
+    <ScrollView BackgroundColor="Bisque">
+        <StackLayout Padding="20">
+            <Label Text="{Binding Job.Title}" FontSize="20" HorizontalTextAlignment="Center" FontAttributes="Bold" Padding="20" />
+            <HorizontalStackLayout Padding="10" HorizontalOptions="Center">
+                <Image Source="{Binding Job.LogoUrl}" Aspect="AspectFill" HeightRequest="30" WidthRequest="30"  HorizontalOptions="Start"/>
+                <Label Text="{Binding Job.EmployerName}" FontSize="Subtitle" Padding="10" />
+            </HorizontalStackLayout>
+            <BoxView Color="Gray"
+                 HeightRequest="1"
+                 HorizontalOptions="Fill" />
+            <VerticalStackLayout>
+                <Label Text="{Binding Job.CompanyAddress, StringFormat=Address: {0}}" FontSize="12" HorizontalTextAlignment="Start" FontAttributes="Bold" Padding="3" />
+                <Label Text="{Binding Job.Salary, StringFormat=Salay: {0}}" FontSize="12" HorizontalTextAlignment="Start" FontAttributes="Bold" Padding="3" />
+                <Label Text="{Binding Job.HiredNumber, StringFormat=Total: {0}}" FontSize="12" HorizontalTextAlignment="Start" FontAttributes="Bold" Padding="3" />
+                <Label Text="{Binding Job.CreatedTime, StringFormat=Created at: {0:dd/MM}}" FontSize="12" HorizontalTextAlignment="Start" FontAttributes="Bold" Padding="3" />
+            </VerticalStackLayout>
+            <Frame BorderColor="Gray"
+               CornerRadius="5"
+               Padding="8">
+                <StackLayout>
+                    <Label Text="Job Description:" Padding="10" FontSize="12" TextColor="DarkGreen"/>
+                    <Label Text="{Binding Job.Description}" FontSize="Body" Padding="10"  />
+                </StackLayout>
+            </Frame>
+            
+            <Button Text="Apply Now" 
+                Command="{Binding ApplyCommand}"
+                HorizontalOptions="Center" 
+                WidthRequest="150" 
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"/>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

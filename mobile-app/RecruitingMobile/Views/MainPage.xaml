@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecruitingMobile.MainPage"
+             Title="{Binding Title}"
+             xmlns:model="clr-namespace:RecruitingMobile.Models"
+             xmlns:viewmodel="clr-namespace:RecruitingMobile.ViewModels"
+             Shell.BackgroundColor="DarkGreen"
+             Shell.NavBarHasShadow="true"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="True"
+             x:DataType="viewmodel:JobListViewModel"
+>
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding SetLowBrightnessCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+        FontFamily="MaterialIconsOutlined-Regular"
+        Glyph="&#xe51c;"
+        Color="LightBlue"
+        Size="20"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+        <ToolbarItem Command="{Binding SetHighBrightnessCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+        FontFamily="MaterialIconsOutlined-Regular"
+        Glyph="&#xe518;"
+        Color="LightPink"
+        Size="32"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>-->
+
+    <RefreshView
+        Grid.ColumnSpan="2"
+        Command="{Binding GetJobsCommand}"
+        IsRefreshing="{Binding IsRefreshing}">
+        <CollectionView 
+            ItemsSource="{Binding Jobs}" 
+            SelectionMode="None"
+            RemainingItemsThreshold="3"
+            RemainingItemsThresholdReachedCommand="{Binding GetMoreJobsCommand}"
+            RemainingItemsThresholdReachedCommandParameter="{Binding .}">
+            <!--<CollectionView.ItemsSource>
+            <x:Array Type="{x:Type model:Job}">
+                <model:Job Title="Full Stack Engineer" Description="The vertical height of a Label can be customized by setting the Label" CompanyAddress="Auckland, New Zealand" Salary="100K-120K" CompanyName="Apple" LogoUrl="https://pngfre.com/wp-content/uploads/apple-logo-13-1024x1024.png"/>
+                <model:Job Title="Full Stack Engineer" Description="The vertical height of a Label can be customized by setting the Label" CompanyAddress="Auckland, New Zealand" Salary="100K-120K" CompanyName="MicroSoft " LogoUrl="https://pngfre.com/wp-content/uploads/apple-logo-13-1024x1024.png"/>
+                <model:Job Title="Full Stack Engineer" Description="The vertical height of a Label can be customized by setting the Label" CompanyAddress="Auckland, New Zealand" Salary="100K-120K" CompanyName="Apple" LogoUrl="https://pngfre.com/wp-content/uploads/apple-logo-13-1024x1024.png"/>
+                <model:Job Title="Full Stack Engineer" Description="The vertical height of a Label can be customized by setting the Label" CompanyAddress="Auckland, New Zealand" Salary="100K-120K" CompanyName="Apple" LogoUrl="https://pngfre.com/wp-content/uploads/apple-logo-13-1024x1024.png"/>
+                <model:Job Title="Full Stack Engineer" Description="The vertical height of a Label can be customized by setting the Label" CompanyAddress="Auckland, New Zealand" Salary="100K-120K" CompanyName="Apple" LogoUrl="https://pngfre.com/wp-content/uploads/apple-logo-13-1024x1024.png"/>
+                <model:Job Title="Full Stack Engineer" Description="The vertical height of a Label can be customized by setting the Label" CompanyAddress="Auckland, New Zealand" Salary="100K-120K" CompanyName="Apple" LogoUrl="https://pngfre.com/wp-content/uploads/apple-logo-13-1024x1024.png"/>
+                <model:Job Title="Full Stack Engineer" Description="The vertical height of a Label can be customized by setting the Label" CompanyAddress="Auckland, New Zealand" Salary="100K-120K" CompanyName="Apple" LogoUrl="https://pngfre.com/wp-content/uploads/apple-logo-13-1024x1024.png"/>
+                <model:Job Title="Full Stack Engineer" Description="The vertical height of a Label can be customized by setting the Label" CompanyAddress="Auckland, New Zealand" Salary="100K-120K" CompanyName="Apple" LogoUrl="https://pngfre.com/wp-content/uploads/apple-logo-13-1024x1024.png"/>
+                <model:Job Title="Full Stack Engineer" Description="The vertical height of a Label can be customized by setting the Label" CompanyAddress="Auckland, New Zealand" Salary="100K-120K" CompanyName="Apple" LogoUrl="https://pngfre.com/wp-content/uploads/apple-logo-13-1024x1024.png"/>
+                <model:Job Title="Full Stack Engineer" Description="The vertical height of a Label can be customized by setting the Label" CompanyAddress="Auckland, New Zealand" Salary="100K-120K" CompanyName="Apple" LogoUrl="https://pngfre.com/wp-content/uploads/apple-logo-13-1024x1024.png"/>
+            </x:Array>
+        </CollectionView.ItemsSource>-->
+            <!-- Add CollectionView -->
+            <CollectionView.EmptyView>
+                <StackLayout Padding="100">
+                    <Image
+                        HorizontalOptions="Center"
+                        Source="nodata.png"
+                        HeightRequest="200"
+                        WidthRequest="200"
+                        VerticalOptions="Center" />
+                </StackLayout>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Job">
+                    <Border StrokeThickness="2"
+                        StrokeShape="RoundRectangle 10,10,10,10"
+                        Background="Bisque"
+                        Padding="10,10">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JobListViewModel}}, Path=GoToDetailsCommand}"
+                                CommandParameter="{Binding .}" NumberOfTapsRequired="1"/>
+                        </Border.GestureRecognizers>
+                        <!-- Add the Gesture Recognizer-->
+                        <!--<Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:JobListViewModel}}, Path=GoToDetailsCommand}"
+                            CommandParameter="{Binding .}" NumberOfTapsRequired="1"/>
+                        </Frame.GestureRecognizers>-->
+                        <Grid RowSpacing="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" Grid.ColumnSpan="5" Text="{Binding Title}" LineBreakMode="WordWrap" FontAttributes="Bold" />
+                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Text="{Binding Salary}" FontAttributes="Italic" VerticalOptions="End"/>
+                            <Image Grid.Row="2" Grid.Column="0" Source="{Binding LogoUrl}" Aspect="AspectFill" HeightRequest="30" WidthRequest="30"  HorizontalOptions="Start"/>
+                            <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding EmployerName}" VerticalOptions="Center" HorizontalOptions="Start"/>
+                            <Label Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Text="{Binding CompanyAddress}" FontSize="10" VerticalOptions="Center" HorizontalOptions="End"/>
+
+                        </Grid>
+                        </Border>
+                </DataTemplate>
+                <!--<ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Center"
+			   Color="{StaticResource Primary}"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="2"/>-->
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>
